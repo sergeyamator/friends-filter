@@ -1,0 +1,31 @@
+extends ../layouts/base.pug
+
+block variables
+  - var title = "Base template"
+
+block content
+  .container
+    .friends
+      .friends_top
+        .friends_header Выберите друзей
+        .friends_close: i(class="fa fa-times")
+
+      .friends_search
+        .friends_search-field
+          i(class="fa fa-search friends_search-icon")
+          input(placeholder="Начните вводить имя друга" class="friends_search-input")
+      main.friends_content
+        .friends_left
+          .friends_title Ваши друзья
+          ul.friends_list(data-content="main")
+        .friends_right
+          .friends_title Друзья в списке
+          ul.friends_list(data-content="added")
+      .friends_bottom
+        button(type="button").friends_save-button Сохранить
+  script(type="text/x-handlebars-template" class="user-template")
+    li.user
+      img.user_img(href="")
+      span.user_name
+      i.fa.fa-times
+
