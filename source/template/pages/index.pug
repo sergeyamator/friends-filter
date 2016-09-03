@@ -23,9 +23,11 @@ block content
           ul.friends_list(data-content="added")
       .friends_bottom
         button(type="button").friends_save-button Сохранить
-  script(type="text/x-handlebars-template" class="user-template")
-    li.user
-      img.user_img(href="")
-      span.user_name
-      i.fa.fa-times
-
+  script(type="text/x-handlebars-template" class="user-template").
+    {{#each data}}
+      <li class="user">
+        <img class="user_img" href="">
+        <span class="user_name">{{first_name}} {{last_name}}</span>
+        <i class="fa fa-times"></i>
+      </li>
+    {{/each}}
