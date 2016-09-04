@@ -1,6 +1,7 @@
 'use strict';
 
-let Handlebars = require('handlebars');
+
+let render = require('./render');
 
 new Promise(resolve => {
   if (document.readyState === 'complete') {
@@ -23,13 +24,9 @@ new Promise(resolve => {
     }, 2);
   })
 }).then(() => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     VK.api('friends.get',{'name_case' : 'nom', fields: 'nickname'}, response => {
-      let source = document.querySelector('.user-template').innerHTML,
-        templateFunction = Handlebars.compile(source),
-        template = templateFunction({data: response.response});
-
-      document.querySelector('.friends_list').innerHTML = template;
+      render(response.response);
       resolve();
     })
   });

@@ -92,3 +92,18 @@ body {
     }
   }
 }
+
+.user {
+  @extend %clearfix;
+  padding: 10px;
+  color: #4f4f4f;
+
+  &:hover {
+    background: lighten(#4f4f4f, 35%);
+  }
+
+  .fa {
+    float: right;
+    font-size: 21px;
+  }
+}
