@@ -3,6 +3,10 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.over {
+  outline: 2px dashed green;
+}
+
 .container {
   width: 50%;
   margin: auto;
@@ -55,9 +59,6 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    min-height: 200px;
-    max-height: 500px;
-    overflow-y: auto;
     background: #fff;
   }
 
@@ -66,8 +67,24 @@ body {
     width: 50%;
   }
 
+  &_right {
+    margin-left: 20px;
+  }
+
   &_title {
+    margin-bottom: 20px;
+    font-weight: bold;
     color: #4f4f4f;
+  }
+
+  &_list,
+  &_list-added {
+    height: 400px;
+    overflow-y: auto;
+  }
+
+  &_list {
+    border-right: 1px solid grey;
   }
 
   &_bottom {
@@ -97,13 +114,21 @@ body {
   @extend %clearfix;
   padding: 10px;
   color: #4f4f4f;
+  cursor: move;
+
+  img,
+  name {
+    display: inline-block;
+    vertical-align: middle;
+  }
 
   &:hover {
-    background: lighten(#4f4f4f, 35%);
+    background: lighten(#4f4f4f, 65%);
   }
 
   .fa {
     float: right;
+    margin-top: 15px;
     font-size: 21px;
   }
 }

@@ -20,14 +20,12 @@ block content
           ul.friends_list(data-content="main")
         .friends_right
           .friends_title Друзья в списке
-          ul.friends_list(data-content="added")
+          ul.friends_list-added
       .friends_bottom
         button(type="button").friends_save-button Сохранить
-  script(type="text/x-handlebars-template" class="user-template").
-    {{#each data}}
-      <li class="user">
-        <img class="user_img" href="">
-        <span class="user_name">{{first_name}} {{last_name}}</span>
+  script(type="text/x-handlebars-template" id="user-template").
+      <li class="user" draggable="true">
+        <img class="user_img" src="{{photo}}">
+        <span class="user_name">{{firstName}} {{lastName}}</span>
         <i class="fa fa-plus"></i>
       </li>
-    {{/each}}

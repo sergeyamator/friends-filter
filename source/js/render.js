@@ -1,13 +1,31 @@
 'use strict';
 
-let Handlebars = require('handlebars');
+let compile = require('./compile');
 
-function render(data) {
-  let source = document.querySelector('.user-template').innerHTML,
-    templateFunction = Handlebars.compile(source),
-    template = templateFunction({data: data});
+function render(data, elementClass) {
+  let fragment = document.createDocumentFragment();
 
-  document.querySelector('.friends_list').innerHTML = template;
+  data.forEach(user => {
+    let model = {
+      firstName: user.first_name,
+      lastName: user.last_name,
+      photo: user.photo_50
+    };
+
+    let imgElement = compile('user-template', model);
+
+    if (imgElement) {
+      fragment.appendChild(imgElement);
+    }
+  });
+
+  let usersList = document.querySelector('.' + elementClass);
+
+  if (usersList.childNodes) {
+    usersList.innerHTML = '';
+  }
+
+  usersList.appendChild(fragment);
 }
 
 module.exports = render;

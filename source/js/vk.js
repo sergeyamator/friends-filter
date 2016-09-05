@@ -1,7 +1,8 @@
 'use strict';
 
-
+const ACCESS_FRIENDS = 2;
 let render = require('./render');
+let Draggable = require('./draggable');
 
 new Promise(resolve => {
   if (document.readyState === 'complete') {
@@ -21,15 +22,24 @@ new Promise(resolve => {
       } else {
         console.log('не все ок');
       }
-    }, 2);
+    }, ACCESS_FRIENDS);
   })
 }).then(() => {
-  return new Promise((resolve) => {
-    VK.api('friends.get',{'name_case' : 'nom', fields: 'nickname'}, response => {
-      render(response.response);
-      resolve();
-    })
-  });
+  let options = {
+    'name_case': 'nom',
+    fields: 'photo_50'
+  };
+
+  let draggableOptions = {
+    parent: 'friends_list',
+    element: 'user',
+    targetElement: 'friends_list-added'
+  };
+
+  VK.api('friends.get', options, response => {
+    render(response.response, 'friends_list');
+    new Draggable(draggableOptions);
+  })
 });
 
 
