@@ -1,5 +1,7 @@
 'use strict';
 
+let actions = require('./actions');
+
 class Draggable {
   constructor(options) {
     this.options = options;
@@ -22,6 +24,10 @@ class Draggable {
   }
 
   _onDragstart(e) {
+    if (this.parent.closest('.deleted')) {
+      return;
+    }
+
     let target = e.target;
 
     if (!target.closest(`.${this.options.element}`)) {
@@ -51,14 +57,15 @@ class Draggable {
   _onDrop(e) {
     // this / e.target is current target element.
     e.preventDefault();
+    this.targetElement.classList.remove('over');
 
     if (e.stopPropagation) {
       e.stopPropagation(); // stops the browser from redirecting.
     }
 
     this.element.style.opacity = '1';
+    actions.move(false, this.element, this.targetElement);
 
-    this.targetElement.appendChild(this.element);
     return false;
   }
 

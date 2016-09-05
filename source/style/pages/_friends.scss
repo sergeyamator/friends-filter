@@ -131,4 +131,12 @@ body {
     margin-top: 15px;
     font-size: 21px;
   }
+
+  &.deleted {
+    cursor: auto;
+    .fa {
+      cursor: pointer;
+      transform: rotate(45deg);
+    }
+  }
 }
