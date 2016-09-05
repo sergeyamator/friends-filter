@@ -92,7 +92,8 @@ body {
     text-align: right;
   }
 
-  &_save-button {
+  &_save-button,
+  &_clear-button {
     display: inline-block;
     min-width: 100px;
     padding: 7px;
@@ -107,6 +108,10 @@ body {
     &:hover {
       background: darken(#ff8663, 10%);
     }
+  }
+
+  &_clear-button {
+    background: palevioletred;
   }
 }
 

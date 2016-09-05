@@ -22,10 +22,16 @@ block content
           .friends_title Друзья в списке
           ul.friends_list-added
       .friends_bottom
+        button(type="button").friends_clear-button Очистить
         button(type="button").friends_save-button Сохранить
   script(type="text/x-handlebars-template" id="user-template").
-      <li class="user" draggable="true">
+      {{#if deleted}}
+        <li class="user deleted" draggable="true">
+      {{else}}
+        <li class="user" draggable="true">
+      {{/if}}
         <img class="user_img" src="{{photo}}">
         <span class="user_name">{{firstName}} {{lastName}}</span>
         <i class="fa fa-plus"></i>
+
       </li>

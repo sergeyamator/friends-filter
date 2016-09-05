@@ -5,6 +5,8 @@ let render = require('./render');
 let Draggable = require('./draggable');
 let actions = require('./actions');
 
+let friendsBlock = document.querySelector('.friends_content');
+
 new Promise(resolve => {
   if (document.readyState === 'complete') {
     resolve();
@@ -26,6 +28,24 @@ new Promise(resolve => {
     }, ACCESS_FRIENDS);
   })
 }).then(() => {
+  if (localStorage.getItem('friends')) {
+    let friends = JSON.parse(localStorage.getItem('friends'));
+    let deletedFriends = JSON.parse(localStorage.getItem('deletedFriends'));
+
+    let draggableOptions = {
+      parent: 'friends_list',
+      element: 'user',
+      targetElement: 'friends_list-added'
+    };
+
+    new Draggable(draggableOptions);
+    friendsBlock.addEventListener('click', _onClick);
+
+    render(friends, 'friends_list');
+    render(deletedFriends, 'friends_list-added', true);
+    return;
+  }
+
   let options = {
     'name_case': 'nom',
     fields: 'photo_50'
@@ -40,27 +60,24 @@ new Promise(resolve => {
   VK.api('friends.get', options, response => {
     render(response.response, 'friends_list');
     new Draggable(draggableOptions);
-
-    let friendsBlock = document.querySelector('.friends_content');
-
-    friendsBlock.addEventListener('click', (e) => {
-      let target = e.target;
-
-      if (!target.classList.contains('fa')) {
-        return;
-      }
-
-      let parent = target.closest('.user');
-
-      if (parent.classList.contains('deleted')) {
-        actions.move(true, parent, document.querySelector('.friends_list'));
-      } else {
-        actions.move(false, parent, document.querySelector('.friends_list-added'));
-      }
-    });
+    friendsBlock.addEventListener('click', _onClick);
   })
 });
 
+function _onClick(e) {
+  let target = e.target;
 
+  if (!target.classList.contains('fa')) {
+    return;
+  }
+
+  let parent = target.closest('.user');
+
+  if (parent.classList.contains('deleted')) {
+    actions.move(true, parent, document.querySelector('.friends_list'));
+  } else {
+    actions.move(false, parent, document.querySelector('.friends_list-added'));
+  }
+}
 
 

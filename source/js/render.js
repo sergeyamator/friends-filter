@@ -2,6 +2,11 @@
 
 let compile = require('./compile');
 
+/**
+ * Rendered data to element with @param elementClass
+ * @param {Array.<Object>} data
+ * @param {String} elementClass
+ */
 function render(data, elementClass) {
   let fragment = document.createDocumentFragment();
 
@@ -9,7 +14,8 @@ function render(data, elementClass) {
     let model = {
       firstName: user.first_name,
       lastName: user.last_name,
-      photo: user.photo_50
+      photo: user.photo_50,
+      deleted: user.deleted || false
     };
 
     let imgElement = compile('user-template', model);
